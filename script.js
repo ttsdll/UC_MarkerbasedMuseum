@@ -20,16 +20,13 @@ const overlayDesc = document.getElementById("vehicle-description");
 const collectBtn = document.getElementById("collect-btn");
 
 // AR-Logik
-document.addEventListener("DOMContentLoaded", () => {
-  const scene = document.querySelector("a-scene");
-
+document.querySelector('a-scene').addEventListener('loaded', () => {
   markerIds.forEach(id => {
-    const marker = document.createElement("a-marker");
-    marker.setAttribute("type", "pattern");
-    marker.setAttribute("url", `markers/marker${id}.patt`);
-    marker.setAttribute("id", `marker-${id}`);
+    const marker = document.createElement('a-marker');
+    marker.setAttribute('type', 'pattern');
+    marker.setAttribute('url', `Marker${id}.patt`);
+    marker.setAttribute('id', `marker-${id}`);
 
-    // Optionales visuelles Feedback
     const ring = document.createElement("a-ring");
     ring.setAttribute("color", "#00ffff");
     ring.setAttribute("radius-inner", "0.1");
@@ -38,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ring.setAttribute("rotation", "-90 0 0");
     marker.appendChild(ring);
 
-    // Marker wird erkannt
     marker.addEventListener("markerFound", () => {
       if (!collected.has(id)) {
         currentMarker = id;
@@ -46,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    scene.appendChild(marker);
+    document.querySelector("a-scene").appendChild(marker);
   });
 });
 
