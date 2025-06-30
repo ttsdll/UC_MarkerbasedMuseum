@@ -27,6 +27,15 @@ document.querySelector('a-scene').addEventListener('loaded', () => {
     marker.setAttribute('url', `Marker${id}.patt`);
     marker.setAttribute('id', `marker-${id}`);
 
+      const box = document.createElement("a-box");
+  box.setAttribute("color", "#ff0000");
+  box.setAttribute("depth", "0.1");
+  box.setAttribute("height", "0.1");
+  box.setAttribute("width", "0.1");
+  box.setAttribute("position", "0 0.1 0");
+  marker.appendChild(box);
+
+    // Visueller Ring
     const ring = document.createElement("a-ring");
     ring.setAttribute("color", "#00ffff");
     ring.setAttribute("radius-inner", "0.1");
@@ -34,6 +43,17 @@ document.querySelector('a-scene').addEventListener('loaded', () => {
     ring.setAttribute("position", "0 0.05 0");
     ring.setAttribute("rotation", "-90 0 0");
     marker.appendChild(ring);
+
+    // 🪙 Testobjekt: rotierende Münze
+    const coin = document.createElement("a-cylinder");
+    coin.setAttribute("color", "#FFD700");
+    coin.setAttribute("radius", "0.15");
+    coin.setAttribute("height", "0.05");
+    coin.setAttribute("position", "0 0.1 0");
+    coin.setAttribute("rotation", "0 0 0");
+    coin.setAttribute("animation", "property: rotation; to: 0 360 0; loop: true; dur: 2000");
+    coin.setAttribute("class", "coin-object");
+    marker.appendChild(coin);
 
     marker.addEventListener("markerFound", () => {
       if (!collected.has(id)) {
@@ -61,6 +81,15 @@ collectBtn.addEventListener("click", () => {
   if (currentMarker !== null && !collected.has(currentMarker)) {
     collected.add(currentMarker);
     pointsDisplay.textContent = collected.size;
+
+    // ➕ Optional: Münze ausblenden
+    const markerEntity = document.getElementById(`marker-${currentMarker}`);
+    if (markerEntity) {
+      const coin = markerEntity.querySelector(".coin-object");
+      if (coin) {
+        coin.setAttribute("visible", "false");
+      }
+    }
 
     if (collected.size === markerIds.length) {
       alert("🎉 Du hast alle Fahrzeuge gesammelt!");
