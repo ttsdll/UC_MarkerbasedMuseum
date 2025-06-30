@@ -1,30 +1,29 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mercedes-Benz Museum - Sammelspiel</title>
-
-  <!-- Zentrale Styles -->
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muenzspiel</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="index-page">
-
-  <h1>Markersammelspiel</h1>
-  <p>In diesem AR-Spiel kannst du Fahrzeuge im Mercedes-Benz Museum entdecken.</p>
-  <p>Scanne alle Marker mit deinem Smartphone. Zu jedem Modell erhältst du spannende Informationen.</p>
-  <p>Wenn du alle 5 Fahrzeuge gefunden hast, erhältst du eine Belohnung an der Rezeption!</p>
-
-  <button id="index-start-btn">Los geht’s</button>
-
-  <img src="schatztruhe.png" alt="Schatztruhe" id="schatztruhe" />
-
-
-  <script>
-    document.getElementById("index-start-btn").addEventListener("click", function () {
-      window.location.href = "markermuseum.html";
+<body>
+    <h1>Willkommen zum Münzspiel!</h1>
+    <p></p>
+    <p>In diesem Spiel musst du Münzen sammeln, indem du AR-Marker mit deiner Kamera scannst. Drucke dir die AR-Marker aus. Die Bilder zum Download findest du unten auf der Seite. Lasse sie dir nun von deinem Spielpartner verstecken. Jetzt bist du dran. Finde die Marker innerhalb der 2 Minuten. Wenn du es schaffst gewinnst du! Viel Spaß!</p>
+    <button id="button">Spiel starten</button>
+        <script>
+    document.getElementById("button").addEventListener("click", function() {
+      window.location.href = "muenzspiel.html";
     });
-  </script>
-
+    </script>
+    <img src="schatztruhe.png" alt="Schatztruhe" id="schatztruhe">
+        <!-- Marker-Link -->
+    <div id="marker-links">
+      <a href="Marker1.png" target="_blank">Marker 1</a>
+      <a href="Marker2.png" target="_blank">Marker 2</a>
+      <a href="Marker3.png" target="_blank">Marker 3</a>
+      <a href="Marker4.png" target="_blank">Marker 4</a>
+      <a href="Marker5.png" target="_blank">Marker 5</a>
+    </div>
 </body>
 </html>

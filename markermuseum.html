@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>MarkerMuseum</title>
+    <title>AR-Münzspiel – Blickbasierte Interaktion</title>
     <script src= "script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 
@@ -13,18 +13,21 @@
 
   <body style="margin: 0; overflow: hidden;">
     <div id="hud">
-  <div>Fahrzeuge gesammelt: <span id="points">0</span> / 5</div>
-</div>
+      <div>Zeit: <span id="timer">120</span>s</div>
+      <div>Münzen: <span id="coins">0</span>/5</div>
+      <div id="message"></div>
+    </div>
 
-<!-- Info-Overlay für Markerinformationen -->
-<div id="info-overlay" class="hidden">
-  <h2 id="vehicle-title">Fahrzeugname</h2>
-  <p id="vehicle-description">Beschreibung folgt …</p>
-  <button id="collect-btn">Sammeln</button>
-</div>
+        <button id="restart-btn">Nochmal spielen</button>
+
+    <div id="progressBar">
+      <div id="progressFill"></div>
+    </div>
 
     <a-scene embedded arjs="sourceType: webcam; markersAreaEnabled: true;">
       <a-entity camera></a-entity>
+          <audio id="win-sound" src="win.mp3"></audio>
+<audio id="lose-sound" src="lose.mp3"></audio>
     </a-scene>
   </body>
 </html>
