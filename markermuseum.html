@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- A-Frame & AR.js -->
-  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-  <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/2.2.1/aframe/build/aframe-ar.min.js"></script>
+   <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
 
   <!-- Style & Script -->
   <link rel="stylesheet" href="style.css" />
@@ -27,37 +27,9 @@
     <button id="collect-btn">Sammeln</button>
   </div>
 
-  <!-- AR Scene -->
-  <a-scene embedded arjs="sourceType: webcam; markersAreaEnabled: true;">
-
-    <!-- Marker 1 -->
-    <a-marker type="pattern" url="markers/marker1.patt" id="marker-1">
-      <a-ring color="#00ffff" radius-inner="0.1" radius-outer="0.15" position="0 0.05 0" rotation="-90 0 0"></a-ring>
-    </a-marker>
-
-    <!-- Marker 2 -->
-    <a-marker type="pattern" url="markers/marker2.patt" id="marker-2">
-      <a-ring color="#00ffff" radius-inner="0.1" radius-outer="0.15" position="0 0.05 0" rotation="-90 0 0"></a-ring>
-    </a-marker>
-
-    <!-- Marker 3 -->
-    <a-marker type="pattern" url="markers/marker3.patt" id="marker-3">
-      <a-ring color="#00ffff" radius-inner="0.1" radius-outer="0.15" position="0 0.05 0" rotation="-90 0 0"></a-ring>
-    </a-marker>
-
-    <!-- Marker 4 -->
-    <a-marker type="pattern" url="markers/marker4.patt" id="marker-4">
-      <a-ring color="#00ffff" radius-inner="0.1" radius-outer="0.15" position="0 0.05 0" rotation="-90 0 0"></a-ring>
-    </a-marker>
-
-    <!-- Marker 5 -->
-    <a-marker type="pattern" url="markers/marker5.patt" id="marker-5">
-      <a-ring color="#00ffff" radius-inner="0.1" radius-outer="0.15" position="0 0.05 0" rotation="-90 0 0"></a-ring>
-    </a-marker>
-
-    <!-- Kamera -->
-    <a-entity camera></a-entity>
-  </a-scene>
+<a-scene embedded arjs="sourceType: webcam; markersAreaEnabled: true;">
+      <a-entity camera></a-entity>
+    </a-scene>
 
 </body>
 </html>
