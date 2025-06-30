@@ -1,126 +1,76 @@
+// Marker-IDs
 const markerIds = [1, 2, 3, 4, 5];
 const collected = new Set();
-let timeLeft = 120;
-let timerInterval;
-let focusTimeout = null;
 let currentMarker = null;
 
+// Info-Texte für die Fahrzeuge
+const vehicleInfos = {
+  1: { title: "Mercedes-Benz 300 SL", description: "Der ikonische Flügeltürer aus den 1950er Jahren." },
+  2: { title: "Mercedes-Benz G-Klasse", description: "Legendärer Geländewagen mit starkem Charakter." },
+  3: { title: "Mercedes-Benz EQS", description: "Vollelektrisches Luxusmodell – elegant und modern." },
+  4: { title: "Mercedes-Benz C 111", description: "Futuristisches Forschungsfahrzeug mit Wankelmotor." },
+  5: { title: "Mercedes-Benz Silberpfeil", description: "Die Rennsportlegende mit Stil und Geschichte." }
+};
+
+// HUD & Overlay-Elemente
+const pointsDisplay = document.getElementById("points");
+const overlay = document.getElementById("info-overlay");
+const overlayTitle = document.getElementById("vehicle-title");
+const overlayDesc = document.getElementById("vehicle-description");
+const collectBtn = document.getElementById("collect-btn");
+
+// AR-Logik
 document.addEventListener("DOMContentLoaded", () => {
-  // const scene = document.querySelector("a-scene"); // Removed unused variable
+  const scene = document.querySelector("a-scene");
 
   markerIds.forEach(id => {
     const marker = document.createElement("a-marker");
     marker.setAttribute("type", "pattern");
-    marker.setAttribute("url", `Marker${id}.patt`);
+    marker.setAttribute("url", `markers/marker${id}.patt`);
     marker.setAttribute("id", `marker-${id}`);
 
-    const coin = document.createElement("a-cylinder");
-    coin.setAttribute("position", "0 1 0");
-    coin.setAttribute("radius", "0.5");
-    coin.setAttribute("height", "0.1");
-    coin.setAttribute("color", "#FFD700");
-    marker.appendChild(coin);
+    // Optionales visuelles Feedback
+    const ring = document.createElement("a-ring");
+    ring.setAttribute("color", "#00ffff");
+    ring.setAttribute("radius-inner", "0.1");
+    ring.setAttribute("radius-outer", "0.15");
+    ring.setAttribute("position", "0 0.05 0");
+    ring.setAttribute("rotation", "-90 0 0");
+    marker.appendChild(ring);
 
+    // Marker wird erkannt
     marker.addEventListener("markerFound", () => {
-      if (!collected.has(id) && !focusTimeout) {
+      if (!collected.has(id)) {
         currentMarker = id;
-        startFocusTimer(id);
+        showOverlay(id);
       }
     });
 
-    marker.addEventListener("markerLost", () => {
-      if (currentMarker === id) {
-        cancelFocusTimer();
-      }
-    });
-
-    // Starte den 60-Sekunden-Timer nur einmal beim ersten Marker
-    if (!timerInterval) {
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        document.getElementById("timer").textContent = timeLeft;
-        if (timeLeft <= 0) {
-          endGame(false);
-        }
-      }, 1000);
-    }
-
-    document.querySelector("a-scene").appendChild(marker);
+    scene.appendChild(marker);
   });
 });
 
-function startFocusTimer(id) {
-  const progressBar = document.getElementById("progressBar");
-  const progressFill = document.getElementById("progressFill");
+// Info-Overlay anzeigen
+function showOverlay(id) {
+  const info = vehicleInfos[id];
+  if (!info) return;
 
-  let progress = 0;
-  progressBar.style.visibility = "visible";
+  overlayTitle.textContent = info.title;
+  overlayDesc.textContent = info.description;
+  overlay.classList.remove("hidden");
+}
 
-  focusTimeout = setInterval(() => {
-    progress += 5;
-    progressFill.style.width = `${progress}%`;
+// Button zum Sammeln
+collectBtn.addEventListener("click", () => {
+  if (currentMarker !== null && !collected.has(currentMarker)) {
+    collected.add(currentMarker);
+    pointsDisplay.textContent = collected.size;
 
-    if (progress >= 100) {
-      clearInterval(focusTimeout);
-      focusTimeout = null;
-      progressBar.style.visibility = "hidden";
-      progressFill.style.width = `0%`;
-
-      collected.add(id);
-      updateHUD();
-
-      if (collected.size === 5) {
-        endGame(true);
-      }
+    if (collected.size === markerIds.length) {
+      alert("🎉 Du hast alle Fahrzeuge gesammelt!");
     }
-  }, 200); // 20 x 200ms = 4000ms (4 Sekunden)
-}
-
-function cancelFocusTimer() {
-  if (focusTimeout) {
-    clearInterval(focusTimeout);
-    focusTimeout = null;
-    document.getElementById("progressFill").style.width = "0%";
-    document.getElementById("progressBar").style.visibility = "hidden";
-  }
-}
-
-function updateHUD() {
-  document.getElementById("coins").textContent = `${collected.size}`;
-}
-
-function rainCoins() {
-  const rainContainer = document.createElement("div");
-  rainContainer.id = "coin-rain";
-  document.body.appendChild(rainContainer);
-
-  for (let i = 0; i < 100; i++) {
-    const coin = document.createElement("div");
-    coin.className = "coin";
-    coin.style.left = Math.random() * 100 + "vw";
-    coin.style.animationDelay = Math.random() * 1.5 + "s";
-    rainContainer.appendChild(coin);
   }
 
-  setTimeout(() => {
-    rainContainer.remove();
-  }, 4000);
-}
-
-                    function endGame(won) {
-  clearInterval(timerInterval);
-  cancelFocusTimer();
-  document.getElementById("progressBar").style.visibility = "hidden";
-  document.getElementById("message").textContent = won ? "🎉 Du hast gewonnen!" : "⏰ Zeit abgelaufen!";
-  document.getElementById("restart-btn").style.display = "block";
-  if (won) {
-    document.getElementById("win-sound").play();
-    rainCoins();
-  } else {
-    document.getElementById("lose-sound").play();
-  }
-}
-
-document.getElementById("restart-btn").addEventListener("click", () => {
-  location.reload(); // Seite neu laden, Spiel startet von vorn
+  overlay.classList.add("hidden");
+  currentMarker = null;
 });

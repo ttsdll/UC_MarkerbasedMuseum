@@ -1,19 +1,37 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>AR-Münzspiel – Blickbasierte Interaktion</title>
-    <script src= "script.js" defer></script>
-    <link rel="stylesheet" href="style.css">
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>AR-Münzspiel Blickbasierte Interaktion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- A-Frame & AR.js -->
-    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
-  </head>
+  <!-- CSS & Script -->
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 
-  <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs="sourceType: webcam; markersAreaEnabled: true;">
-      <a-entity camera></a-entity>
-    </a-scene>
-  </body>
+  <!-- A-Frame & AR.js -->
+  <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+  <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+
+  <!-- HUD -->
+  <div id="hud">
+    Fahrzeuge gesammelt: <span id="points">0</span> / 5
+  </div>
+
+  <!-- Info Overlay -->
+  <div id="info-overlay" class="hidden">
+    <h2 id="vehicle-title">Fahrzeugname</h2>
+    <p id="vehicle-description">Beschreibung …</p>
+    <button id="collect-btn">Sammeln</button>
+  </div>
+
+  <!-- AR Szene -->
+  <a-scene embedded arjs="sourceType: webcam; markersAreaEnabled: true;">
+    <a-entity camera></a-entity>
+  </a-scene>
+
+</body>
 </html>
