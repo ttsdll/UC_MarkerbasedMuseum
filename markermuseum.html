@@ -12,22 +12,8 @@
   </head>
 
   <body style="margin: 0; overflow: hidden;">
-    <div id="hud">
-      <div>Zeit: <span id="timer">120</span>s</div>
-      <div>Münzen: <span id="coins">0</span>/5</div>
-      <div id="message"></div>
-    </div>
-
-        <button id="restart-btn">Nochmal spielen</button>
-
-    <div id="progressBar">
-      <div id="progressFill"></div>
-    </div>
-
     <a-scene embedded arjs="sourceType: webcam; markersAreaEnabled: true;">
       <a-entity camera></a-entity>
-          <audio id="win-sound" src="win.mp3"></audio>
-<audio id="lose-sound" src="lose.mp3"></audio>
     </a-scene>
   </body>
 </html>
