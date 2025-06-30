@@ -5,15 +5,71 @@ body {
   background-color: #000; /* Mercedes-Benz schwarz */
   font-family: 'Corporate S', sans-serif;
   color: white;
-  overflow: hidden;
 }
 
+/* ====== Allgemeine Textformate ====== */
 h1, h2, h3, p {
   margin: 0;
   padding: 0;
 }
 
-/* ====== HUD (oben links) ====== */
+/* ====== Startseite (index.html) ====== */
+body.index-page {
+  text-align: center;
+  padding: 2rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.index-page h1 {
+  color: #00ffff;
+  font-family: 'Corporate A', sans-serif;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.index-page p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+#index-start-btn {
+  background: #00ffff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-family: 'Corporate A', sans-serif;
+  cursor: pointer;
+  margin: 2rem 0;
+  transition: background 0.3s ease;
+}
+
+#index-start-btn:hover {
+  background: #00d5e0;
+}
+
+#marker-links {
+  margin-top: 1rem;
+}
+
+#marker-links a {
+  display: inline-block;
+  margin: 0 8px;
+  color: #00ffff;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+#schatztruhe {
+  margin-top: 2rem;
+  width: 30%;
+  max-width: 240px;
+}
+
+/* ====== HUD (oben links – AR Spiel) ====== */
 #hud {
   position: absolute;
   top: 16px;
@@ -98,7 +154,7 @@ a-scene {
   z-index: 0;
 }
 
-/* Versteckt AR.js Debug UI */
+/* Debug-UI ausblenden */
 #arjsDebugUIContainer {
   display: none !important;
 }
