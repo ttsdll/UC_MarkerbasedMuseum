@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <title>Mercedes-Benz AR Hiro Test</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" />
 
   <!-- A-Frame & AR.js -->
   <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-<script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
+  <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
 
-  <!-- Optional Style/Script -->
+  <!-- Style & Script -->
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
@@ -25,23 +25,31 @@
     Fahrzeuge gesammelt: <span id="points">0</span> / 1
   </div>
 
-  <!-- Overlay -->
-  <div id="info-overlay" class="hidden">
-    <img id="vehicle-image" src="300sl_image.jpg" alt="Fahrzeug" />
-    <h2 id="vehicle-title">Mercedes-Benz 300 SL</h2>
-    <p id="vehicle-description">Das ultimate Sammlerauto! Mit seinen ikonischen Flügeltüren war das Auto bereits in den 50ern ein hingucker - und dreht heute umso mehr Köpfe.</p>
-    <button id="collect-btn">Sammeln</button>
-  </div>
-  
-<audio id="sound-300sl" src="300sl.mp3"></audio>
+  <!-- Audio -->
+  <audio id="sound-300sl" src="300sl.mp3"></audio>
+
+  <!-- Sammel-Button -->
+  <button id="collect-btn" class="hidden">Sammeln</button>
 
   <!-- AR-Szene -->
   <a-scene embedded arjs="sourceType: webcam;">
-    <!-- Hiro Marker -->
-    <a-marker pattern="hiro" id="marker-hiro">
+    
+    <!-- Assets -->
+    <a-assets>
+      <img id="datenblatt-300sl" src="300sl_datenkarte.jpg" />
+    </a-assets>
+
+    <!-- Hiro Marker mit Bild in Originalformat -->
+    <a-marker preset="hiro" id="marker-hiro">
+      <a-image 
+        src="#datenblatt-300sl"
+        width="1"
+        height="1.25"
+        position="0 0.75 0"
+        rotation="-90 0 0">
+      </a-image>
     </a-marker>
 
-    <!-- Kamera -->
     <a-entity camera></a-entity>
   </a-scene>
 
