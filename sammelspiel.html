@@ -2,46 +2,48 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Mercedes-Benz AR Sammelspiel</title>
+  <title>Mercedes-Benz AR Hiro Test</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- A-Frame & AR.js -->
-  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-  <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/2.2.1/aframe/build/aframe-ar.min.js"></script>
+  <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+<script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
 
-  <!-- Custom -->
+  <!-- Optional Style/Script -->
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 <body>
 
-  <!-- Sticky Header mit Logo -->
+  <!-- Header -->
   <header>
     <img src="mercedesbenz_logo.svg" alt="Mercedes-Benz Logo" />
   </header>
 
   <!-- HUD -->
   <div id="hud">
-    Fahrzeuge gesammelt: <span id="points">0</span> / 3
+    Fahrzeuge gesammelt: <span id="points">0</span> / 1
   </div>
 
   <!-- Overlay -->
   <div id="info-overlay" class="hidden">
-    <img id="vehicle-image" src="" alt="Fahrzeug" />
-    <h2 id="vehicle-title"></h2>
-    <p id="vehicle-description"></p>
+    <img id="vehicle-image" src="300sl_image.jpg" alt="Fahrzeug" />
+    <h2 id="vehicle-title">Mercedes-Benz 300 SL</h2>
+    <p id="vehicle-description">Das ultimate Sammlerauto! Mit seinen ikonischen Flügeltüren war das Auto bereits in den 50ern ein hingucker - und dreht heute umso mehr Köpfe.</p>
     <button id="collect-btn">Sammeln</button>
   </div>
+  
+<audio id="sound-300sl" src="300sl.mp3"></audio>
 
   <!-- AR-Szene -->
-  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+  <a-scene embedded arjs="sourceType: webcam;">
+    <!-- Hiro Marker -->
+    <a-marker pattern="hiro" id="marker-hiro">
+    </a-marker>
+
+    <!-- Kamera -->
     <a-entity camera></a-entity>
   </a-scene>
-
-  <!-- Sounds -->
-  <audio id="sound-300sl" src="300sl.mp3"></audio>
-  <audio id="sound-gclass" src="gclass.mp3"></audio>
-  <audio id="sound-slrmclaren" src="slrmclaren.mp3"></audio>
 
 </body>
 </html>
