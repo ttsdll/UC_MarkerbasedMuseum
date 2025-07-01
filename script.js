@@ -1,101 +1,99 @@
-// Marker-IDs
-const markerIds = [1, 2, 3, 4, 5];
+// Marker-Namen & Zuordnung
+const markers = [
+  {
+    id: "300sl",
+    title: "Mercedes-Benz 300 SL",
+    description: "Ein Platzhaltertext zur Geschichte des 300 SL.",
+    image: "300sl.jpg",
+    soundId: "sound-300sl"
+  },
+  {
+    id: "gclass",
+    title: "Mercedes-Benz G-Klasse",
+    description: "Ein Platzhaltertext zur legendären G-Klasse.",
+    image: "gclass.jpg",
+    soundId: "sound-gclass"
+  },
+  {
+    id: "slrmclaren",
+    title: "Mercedes-Benz SLR McLaren",
+    description: "Ein Platzhaltertext zum sportlichen SLR McLaren.",
+    image: "slrmclaren.jpg",
+    soundId: "sound-slrmclaren"
+  }
+];
+
+// Zustand
 const collected = new Set();
-let currentMarker = null;
+let currentMarkerId = null;
 
-// Info-Texte für die Fahrzeuge
-const vehicleInfos = {
-  1: { title: "Mercedes-Benz 300 SL", description: "Der ikonische Flügeltürer aus den 1950er Jahren." },
-  2: { title: "Mercedes-Benz G-Klasse", description: "Legendärer Geländewagen mit starkem Charakter." },
-  3: { title: "Mercedes-Benz EQS", description: "Vollelektrisches Luxusmodell – elegant und modern." },
-  4: { title: "Mercedes-Benz C 111", description: "Futuristisches Forschungsfahrzeug mit Wankelmotor." },
-  5: { title: "Mercedes-Benz Silberpfeil", description: "Die Rennsportlegende mit Stil und Geschichte." }
-};
-
-// HUD & Overlay-Elemente
-const pointsDisplay = document.getElementById("points");
+// DOM-Elemente
 const overlay = document.getElementById("info-overlay");
-const overlayTitle = document.getElementById("vehicle-title");
-const overlayDesc = document.getElementById("vehicle-description");
+const imageElem = document.getElementById("vehicle-image");
+const titleElem = document.getElementById("vehicle-title");
+const descElem = document.getElementById("vehicle-description");
 const collectBtn = document.getElementById("collect-btn");
+const pointsDisplay = document.getElementById("points");
 
-// AR-Logik
-document.querySelector('a-scene').addEventListener('loaded', () => {
-  markerIds.forEach(id => {
-    const marker = document.createElement('a-marker');
-    marker.setAttribute('type', 'pattern');
-    marker.setAttribute('url', `Marker${id}.patt`);
-    marker.setAttribute('id', `marker-${id}`);
+// Wenn Szene geladen ist, Marker dynamisch hinzufügen
+document.querySelector("a-scene").addEventListener("loaded", () => {
+  const scene = document.querySelector("a-scene");
 
-      const box = document.createElement("a-box");
-  box.setAttribute("color", "#ff0000");
-  box.setAttribute("depth", "0.1");
-  box.setAttribute("height", "0.1");
-  box.setAttribute("width", "0.1");
-  box.setAttribute("position", "0 0.1 0");
-  marker.appendChild(box);
+  markers.forEach(marker => {
+    const aMarker = document.createElement("a-marker");
+    aMarker.setAttribute("type", "pattern");
+    aMarker.setAttribute("url", `${marker.id}.patt`);
+    aMarker.setAttribute("id", `marker-${marker.id}`);
 
-    // Visueller Ring
+    // Optionales Testobjekt im Raum
     const ring = document.createElement("a-ring");
     ring.setAttribute("color", "#00ffff");
     ring.setAttribute("radius-inner", "0.1");
     ring.setAttribute("radius-outer", "0.15");
     ring.setAttribute("position", "0 0.05 0");
     ring.setAttribute("rotation", "-90 0 0");
-    marker.appendChild(ring);
+    aMarker.appendChild(ring);
 
-    // 🪙 Testobjekt: rotierende Münze
-    const coin = document.createElement("a-cylinder");
-    coin.setAttribute("color", "#FFD700");
-    coin.setAttribute("radius", "0.15");
-    coin.setAttribute("height", "0.05");
-    coin.setAttribute("position", "0 0.1 0");
-    coin.setAttribute("rotation", "0 0 0");
-    coin.setAttribute("animation", "property: rotation; to: 0 360 0; loop: true; dur: 2000");
-    coin.setAttribute("class", "coin-object");
-    marker.appendChild(coin);
-
-    marker.addEventListener("markerFound", () => {
-      if (!collected.has(id)) {
-        currentMarker = id;
-        showOverlay(id);
+    // Wenn Marker erkannt wird
+    aMarker.addEventListener("markerFound", () => {
+      if (!collected.has(marker.id)) {
+        currentMarkerId = marker.id;
+        showOverlay(marker);
+        playSound(marker.soundId);
       }
     });
 
-    document.querySelector("a-scene").appendChild(marker);
+    scene.appendChild(aMarker);
   });
 });
 
-// Info-Overlay anzeigen
-function showOverlay(id) {
-  const info = vehicleInfos[id];
-  if (!info) return;
-
-  overlayTitle.textContent = info.title;
-  overlayDesc.textContent = info.description;
+// Overlay anzeigen
+function showOverlay(marker) {
+  titleElem.textContent = marker.title;
+  descElem.textContent = marker.description;
+  imageElem.src = marker.image;
   overlay.classList.remove("hidden");
 }
 
-// Button zum Sammeln
+// Sound abspielen
+function playSound(soundId) {
+  const sound = document.getElementById(soundId);
+  if (sound) sound.play();
+}
+
+// Button "Sammeln"
 collectBtn.addEventListener("click", () => {
-  if (currentMarker !== null && !collected.has(currentMarker)) {
-    collected.add(currentMarker);
+  if (currentMarkerId && !collected.has(currentMarkerId)) {
+    collected.add(currentMarkerId);
     pointsDisplay.textContent = collected.size;
 
-    // ➕ Optional: Münze ausblenden
-    const markerEntity = document.getElementById(`marker-${currentMarker}`);
-    if (markerEntity) {
-      const coin = markerEntity.querySelector(".coin-object");
-      if (coin) {
-        coin.setAttribute("visible", "false");
-      }
-    }
-
-    if (collected.size === markerIds.length) {
-      alert("🎉 Du hast alle Fahrzeuge gesammelt!");
+    if (collected.size === markers.length) {
+      setTimeout(() => {
+        window.location.href = "endscreen.html";
+      }, 1000);
     }
   }
 
   overlay.classList.add("hidden");
-  currentMarker = null;
+  currentMarkerId = null;
 });

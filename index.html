@@ -1,21 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muenzspiel</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mercedes-Benz Museum AR Spiel</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-    <h1>Willkommen zum Münzspiel!</h1>
-    <p></p>
-    <p>In diesem Spiel musst du Münzen sammeln, indem du AR-Marker mit deiner Kamera scannst. Drucke dir die AR-Marker aus. Die Bilder zum Download findest du unten auf der Seite. Lasse sie dir nun von deinem Spielpartner verstecken. Jetzt bist du dran. Finde die Marker innerhalb der 2 Minuten. Wenn du es schaffst gewinnst du! Viel Spaß!</p>
-    <button id="button">Spiel starten</button>
-        <script>
-    document.getElementById("button").addEventListener("click", function() {
-      window.location.href = "markermuseum.html";
+<body class="index-page">
+
+  <!-- Sticky Header mit Logo -->
+  <header>
+    <img src="mercedesbenz_logo.svg" alt="Mercedes-Benz Logo" />
+  </header>
+
+  <!-- Einführung -->
+   <div class="bg-container">
+    <main class="content">
+      <h1>Willkommen im Marker-Spiel des Mercedes-Benz Museums!</h1>
+      <p>Scanne alle Marker im Mercedes-Benz Museum, um Fahrzeuge zu entdecken. 
+        Wenn du alle gefunden hast, zeige den Endscreen an der Rezeption vor und erhalte eine Belohnung!</p>
+      <button onclick="window.location.href='sammelspiel.html'">Los geht’s</button>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('start-btn').addEventListener('click', () => {
+      window.location.href = 'sammelspiel.html';
     });
-    </script>
-    <img src="schatztruhe.png" alt="Schatztruhe" id="schatztruhe">
+  </script>
 </body>
 </html>
