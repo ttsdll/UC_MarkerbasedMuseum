@@ -36,7 +36,6 @@ header img {
   max-width: 150px;
 }
 
-/* ====== Inhalt Padding (außer Header) ====== */
 main,
 .content,
 .endscreen {
@@ -178,7 +177,7 @@ h1,
   transform: scale(1.05);
   background-color: #0784c3;
 }
-/* Button fix position bottom center */
+
 #collect-btn {
   position: fixed;
   bottom: 1.5rem;
@@ -201,7 +200,7 @@ h1,
   display: block;
 }
 
-/* Pop-In Animation */
+
 .pop-in {
   animation: popin 0.3s ease forwards;
 }
