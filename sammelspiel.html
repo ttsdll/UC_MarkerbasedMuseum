@@ -5,46 +5,40 @@
   <title>Mercedes-Benz AR Hiro Test</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" />
 
-  <!-- A-Frame & AR.js -->
+  
   <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
   <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
 
-  <!-- Style & Script -->
+
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 <body>
 
-  <!-- Header -->
+
   <header>
     <img src="mercedesbenz_logo.svg" alt="Mercedes-Benz Logo" />
   </header>
 
-  <!-- HUD -->
   <div id="hud">
     Fahrzeuge gesammelt: <span id="points">0</span> / 1
   </div>
 
-  <!-- Audio -->
   <audio id="sound-300sl" src="300sl.mp3"></audio>
 
-  <!-- Sammel-Button -->
   <button id="collect-btn" class="hidden">Sammeln</button>
 
-  <!-- AR-Szene -->
   <a-scene embedded arjs="sourceType: webcam;">
     
-    <!-- Assets -->
     <a-assets>
       <img id="datenblatt-300sl" src="300sl_datenkarte.jpg" />
     </a-assets>
 
-    <!-- Hiro Marker mit Bild in Originalformat -->
     <a-marker preset="hiro" id="marker-hiro">
       <a-image 
         src="#datenblatt-300sl"
         width="1"
-        height="1.25"
+        height="1"
         position="0 0.75 0"
         rotation="-90 0 0">
       </a-image>
